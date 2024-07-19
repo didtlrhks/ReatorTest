@@ -11,7 +11,7 @@ import SwiftUI
 struct ReactorTestApp: App {
     var body: some Scene {
         WindowGroup {
-            TestHomeTag()
+            TestHome()
         }
     }
 }

@@ -6,25 +6,6 @@
 //
 import SwiftUI
 
-struct TestHomeTag: View {
-    var body: some View {
-        ZStack{
-            TabView {
-                TestHome()
-                    .tabItem {
-                        Label("테스트", systemImage: "timer")
-                    }
-                
-                SettingsView()
-                    .tabItem {
-                        Label("설정", systemImage: "gear")
-                    }
-            }
-        }
-        
-    }
-}
-
 struct TestHome: View {
     @State private var isRed = true
     @State private var showTestView = false
@@ -51,7 +32,6 @@ struct TestHome: View {
                         .multilineTextAlignment(.center)
                         .padding()
                     
-             
                     Spacer()
                     
                     // NavigationLink를 사용하여 새로운 뷰로 이동
@@ -65,39 +45,82 @@ struct TestHome: View {
                             .shadow(radius: 10)
                     }
                     
+                    Spacer().frame(height: 20)
+                    
+                    // 설정으로 가기 버튼
+                    NavigationLink(destination: SettingsView()) {
+                        Text("기록보러 가기")
+                            .font(.title2)
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.black)
+                            .cornerRadius(10)
+                            .shadow(radius: 10)
+                    }
+                    
                     Spacer()
                 }
                 
             }
             .edgesIgnoringSafeArea(.horizontal)
             .background(isRed ? Color.red : Color.green)
-                
         }
     }
 }
 
-
-
-
 struct SettingsView: View {
     @State private var records: [Double] = []
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(records, id: \.self) { record in
-                    Text("반응 시간: \(String(format: "%.2f", record)) 초")
+            ZStack {
+                if records.isEmpty {
+                    Text("기록이 없습니다!")
+                        .font(.largeTitle)
+                        .foregroundColor(.gray)
+                        .padding()
+                } else {
+                    List {
+                        ForEach(records, id: \.self) { record in
+                            Text("반응 시간: \(String(format: "%.5f", record)) 초")
+                        }
+                    }
+                    .navigationTitle("기록")
+                    .navigationBarHidden(true)
+                }
+                
+                VStack {
+                    Spacer()
+                    Button(action: {
+                        clearRecords()
+                    }) {
+                        Image(systemName: "trash")
+                            .font(.title)
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .clipShape(Circle())
+                            .shadow(radius: 10)
+                    }
+                    .padding(.bottom, 20)
                 }
             }
-            .navigationTitle("기록")
-            .navigationBarItems(trailing: Button(action: {
-                clearRecords()
-            }) {
-                Text("기록 삭제")
-            })
-        }
-        .onAppear {
-            loadRecords()
+            .navigationBarBackButtonHidden(true)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.black) // 원하는 색상으로 변경
+                            .font(.title2)
+                    }
+                }
+            }
+            .onAppear {
+                loadRecords()
+            }
         }
     }
     

@@ -12,6 +12,7 @@ struct TestView: View {
     @State private var secondTimer: Timer?
     @State private var timeElapsed: Double = 0
     @State private var isSecondTimerRunning: Bool = false
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         ZStack {
@@ -44,6 +45,18 @@ struct TestView: View {
         }
         .onDisappear {
             resetTimers()
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "arrow.left")
+                        .foregroundColor(.black) // 원하는 색상으로 변경
+                        .font(.title2)
+                }
+            }
         }
     }
     
