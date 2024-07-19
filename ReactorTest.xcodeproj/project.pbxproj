@@ -14,6 +14,8 @@
 		8E3223992C4A7DE40056945A /* ReactorTestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3223982C4A7DE40056945A /* ReactorTestTests.swift */; };
 		8E3223A32C4A7DE40056945A /* ReactorTestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3223A22C4A7DE40056945A /* ReactorTestUITests.swift */; };
 		8E3223A52C4A7DE40056945A /* ReactorTestUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3223A42C4A7DE40056945A /* ReactorTestUITestsLaunchTests.swift */; };
+		8E3223B22C4A7E700056945A /* TestHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3223B12C4A7E700056945A /* TestHome.swift */; };
+		8E3223B42C4A80060056945A /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3223B32C4A80060056945A /* TestView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		8E32239E2C4A7DE40056945A /* ReactorTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactorTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E3223A22C4A7DE40056945A /* ReactorTestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTestUITests.swift; sourceTree = "<group>"; };
 		8E3223A42C4A7DE40056945A /* ReactorTestUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTestUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8E3223B12C4A7E700056945A /* TestHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHome.swift; sourceTree = "<group>"; };
+		8E3223B32C4A80060056945A /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 				8E3223892C4A7DE00056945A /* ContentView.swift */,
 				8E32238B2C4A7DE30056945A /* Assets.xcassets */,
 				8E32238D2C4A7DE30056945A /* Preview Content */,
+				8E3223B12C4A7E700056945A /* TestHome.swift */,
+				8E3223B32C4A80060056945A /* TestView.swift */,
 			);
 			path = ReactorTest;
 			sourceTree = "<group>";
@@ -257,7 +263,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E3223B42C4A80060056945A /* TestView.swift in Sources */,
 				8E32238A2C4A7DE00056945A /* ContentView.swift in Sources */,
+				8E3223B22C4A7E700056945A /* TestHome.swift in Sources */,
 				8E3223882C4A7DE00056945A /* ReactorTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
