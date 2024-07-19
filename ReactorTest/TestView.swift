@@ -4,10 +4,6 @@
 //
 //  Created by 양시관 on 7/19/24.
 //
-
-import Foundation
-import SwiftUI
-
 import SwiftUI
 
 struct TestView: View {
@@ -25,6 +21,7 @@ struct TestView: View {
                     if isSecondTimerRunning {
                         secondTimer?.invalidate()
                         isSecondTimerRunning = false
+                        saveRecord(time: timeElapsed)
                     }
                 }
             
@@ -35,23 +32,30 @@ struct TestView: View {
                 Spacer()
                 
                 if timeElapsed > 0 {
-                    Text("반응 시간: \(String(format: "%.2f", timeElapsed)) 초")
+                    Text("반응 시간: \(String(format: "%.5f", timeElapsed)) 초")
                         .font(.title)
                         .padding()
                 }
             }
         }
         .onAppear {
+            resetTimers()
             startFirstTimer()
         }
         .onDisappear {
-            firstTimer?.invalidate()
-            secondTimer?.invalidate()
+            resetTimers()
         }
     }
     
+    func resetTimers() {
+        firstTimer?.invalidate()
+        secondTimer?.invalidate()
+        isSecondTimerRunning = false
+        timeElapsed = 0
+    }
+    
     func startFirstTimer() {
-        let randomTimeInterval = Double.random(in: 1...2)
+        let randomTimeInterval = Double.random(in: 1...5)
         firstTimer = Timer.scheduledTimer(withTimeInterval: randomTimeInterval, repeats: false) { _ in
             backgroundColor = getRandomColor()
             startSecondTimer()
@@ -69,5 +73,11 @@ struct TestView: View {
     func getRandomColor() -> Color {
         let colors: [Color] = [.green, .blue, .yellow, .orange, .purple, .pink]
         return colors.randomElement() ?? .blue
+    }
+    
+    func saveRecord(time: Double) {
+        var records = UserDefaults.standard.array(forKey: "reactionTimes") as? [Double] ?? []
+        records.append(time)
+        UserDefaults.standard.set(records, forKey: "reactionTimes")
     }
 }

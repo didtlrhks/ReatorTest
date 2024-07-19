@@ -6,6 +6,25 @@
 //
 import SwiftUI
 
+struct TestHomeTag: View {
+    var body: some View {
+        ZStack{
+            TabView {
+                TestHome()
+                    .tabItem {
+                        Label("테스트", systemImage: "timer")
+                    }
+                
+                SettingsView()
+                    .tabItem {
+                        Label("설정", systemImage: "gear")
+                    }
+            }
+        }
+        
+    }
+}
+
 struct TestHome: View {
     @State private var isRed = true
     @State private var showTestView = false
@@ -58,3 +77,36 @@ struct TestHome: View {
 }
 
 
+
+
+struct SettingsView: View {
+    @State private var records: [Double] = []
+
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(records, id: \.self) { record in
+                    Text("반응 시간: \(String(format: "%.2f", record)) 초")
+                }
+            }
+            .navigationTitle("기록")
+            .navigationBarItems(trailing: Button(action: {
+                clearRecords()
+            }) {
+                Text("기록 삭제")
+            })
+        }
+        .onAppear {
+            loadRecords()
+        }
+    }
+    
+    func loadRecords() {
+        records = UserDefaults.standard.array(forKey: "reactionTimes") as? [Double] ?? []
+    }
+    
+    func clearRecords() {
+        UserDefaults.standard.removeObject(forKey: "reactionTimes")
+        records = []
+    }
+}
