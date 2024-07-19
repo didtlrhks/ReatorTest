@@ -75,23 +75,39 @@ struct SettingsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                if records.isEmpty {
-                    Text("기록이 없습니다!")
-                        .font(.largeTitle)
-                        .foregroundColor(.gray)
-                        .padding()
-                } else {
-                    List {
-                        ForEach(records, id: \.self) { record in
-                            Text("반응 시간: \(String(format: "%.5f", record)) 초")
+                Color(.systemGray6).ignoresSafeArea()
+                VStack {
+                    
+                    HStack {
+                        Button(action: {
+                            presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Image(systemName: "arrow.left")
+                                .foregroundColor(.black) // 원하는 색상으로 변경
+                                .font(.title2)
+                        }
+                        Spacer()
+                    }
+                    .padding()
+                    
+                    Spacer()
+                    
+                    if records.isEmpty {
+                        Text("기록이 없습니다!")
+                            .font(.largeTitle)
+                            .foregroundColor(.black)
+                            .padding()
+                    } else {
+                        List {
+                            ForEach(records, id: \.self) { record in
+                                Text("반응 시간: \(String(format: "%.5f", record)) 초")
+                            }
+                            
                         }
                     }
-                    .navigationTitle("기록")
-                    .navigationBarHidden(true)
-                }
-                
-                VStack {
+                    
                     Spacer()
+                    
                     Button(action: {
                         clearRecords()
                     }) {
@@ -106,22 +122,14 @@ struct SettingsView: View {
                     .padding(.bottom, 20)
                 }
             }
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "arrow.left")
-                            .foregroundColor(.black) // 원하는 색상으로 변경
-                            .font(.title2)
-                    }
-                }
-            }
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden()
             .onAppear {
                 loadRecords()
             }
         }
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden()
     }
     
     func loadRecords() {
